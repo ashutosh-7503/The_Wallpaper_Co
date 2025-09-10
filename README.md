@@ -4,7 +4,7 @@ A production-ready Flutter wallpaper app for the Kroozelabs Intern Challenge.
 
 ## Screenshots
 
-![App Screenshot Placeholder](screenshots/app_screenshot_placeholder.png)
+![App Screenshot](screenshot.png)
 
 ---
 
