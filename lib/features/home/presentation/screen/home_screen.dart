@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -9,6 +10,7 @@ import 'package:the_wallpaper_company/features/favorite/presentation/screen/favo
 import 'package:the_wallpaper_company/features/home/presentation/screen/wallpaper_screen.dart';
 import 'package:the_wallpaper_company/features/home/presentation/widgets/wallpaper_shimmer.dart';
 import 'package:the_wallpaper_company/features/home/provider/wallpaper_provider.dart';
+import 'package:the_wallpaper_company/firebase_message.dart';
 import '../widgets/category_carousel.dart';
 import 'package:the_wallpaper_company/core/constants.dart';
 import 'package:the_wallpaper_company/features/home/presentation/widgets/wallpaper_tile.dart';
@@ -24,10 +26,23 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final ScrollController _scrollController = ScrollController();
   final RefreshController _refreshController = RefreshController();
+  NotificationServices notificationServices = NotificationServices();
 
   @override
   void initState() {
     super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<WallpaperProvider>(context, listen: false).fetchWallpapers();
     });

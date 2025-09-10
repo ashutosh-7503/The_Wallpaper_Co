@@ -71,7 +71,7 @@ class _WallpaperScreenState extends State<WallpaperScreen>
                 onDoubleTap: _onDoubleTap,
                 child: Stack(
                   children: [
-                    SizedBox.expand(
+                    Positioned.fill(
                       child: CachedNetworkImage(
                         cacheManager: CacheManager(
                           Config(
@@ -174,9 +174,7 @@ class _WallpaperScreenState extends State<WallpaperScreen>
                                   vertical: 12,
                                 ),
                               ),
-                              onPressed: () {
-                                // TODO: Implement download logic
-                              },
+                              onPressed: () {},
                               icon: const Icon(Icons.download, size: 22),
                               label: const Text(
                                 'Download',

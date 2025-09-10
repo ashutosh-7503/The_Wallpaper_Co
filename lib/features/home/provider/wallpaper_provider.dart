@@ -17,6 +17,10 @@ class WallpaperProvider extends ChangeNotifier {
             .take(_visibleCount)
             .toList();
 
+  void addWallpaper(Wallpaper wallpaper) {
+    _wallpapers.add(wallpaper);
+    notifyListeners();
+  }
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   bool get isPaginating => _isPaginating;
@@ -34,6 +38,7 @@ class WallpaperProvider extends ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
+        print(data);
         _wallpapers = data.map((json) => Wallpaper.fromJson(json)).toList();
       }
     } catch (e) {
